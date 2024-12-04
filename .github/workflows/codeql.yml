@@ -99,7 +99,9 @@ jobs:
     - if: matrix.build-mode == 'manual'
       shell: bash
       run: |
-        bash configure --with-boot-jdk=${JAVA_HOME} --disable-warnings-as-errors --with-extra-cflags='-Wno-error' --with-extra-cxxflags='-Wno-error' && make images CFLAGS_WARNINGS_ARE_ERRORS=false JOBS=4
+        export CFLAGS="-Wno-error"
+        export CXXFLAGS="-Wno-error"
+        bash configure --with-boot-jdk=${JAVA_HOME} --disable-warnings-as-errors --disable-werror --with-extra-cflags="-Wno-error" --with-extra-cflags='-Wno-error' --with-extra-cxxflags='-Wno-error' && make images JOBS=4
         exit 1
 
     - name: Perform CodeQL Analysis
