@@ -99,7 +99,7 @@ jobs:
     - if: matrix.build-mode == 'manual'
       shell: bash
       run: |
-        bash configure --with-boot-jdk=${JAVA_HOME} --disable-warnings-as-errors && make images
+        bash configure --with-boot-jdk=${JAVA_HOME} --disable-warnings-as-errors && make images WARNINGS_ARE_ERRORS=false JOBS=4
         exit 1
 
     - name: Perform CodeQL Analysis
