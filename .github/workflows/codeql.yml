@@ -25,6 +25,10 @@ on:
       extra-conf-options:
         required: false
         type: string
+      gcc-major-version:
+        required: true
+        type: string
+        default: '10'
       make-target:
         required: false
         type: string
@@ -33,9 +37,6 @@ on:
         required: false
         type: string
         default: '[ "debug" ]'
-      gcc-major-version:
-        required: true
-        type: string
       gcc-package-suffix:
         required: false
         type: string
