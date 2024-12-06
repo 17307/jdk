@@ -139,6 +139,21 @@ jobs:
     #     sudo apt-get update
     #     sudo apt-get install -y build-essential autoconf zip unzip libx11-dev libxext-dev libxrender-dev libxtst-dev libx11-dev libxext-dev libxrender-dev libxrandr-dev libxtst-dev libxt-dev libcups2-dev libasound2-dev
 
+    - name: 'Configure'
+      run: >
+        bash configure
+        --with-conf-name=${{ inputs.platform }}
+        ${{ matrix.flags }}
+        --with-version-opt=${GITHUB_ACTOR}-${GITHUB_SHA}
+        --with-boot-jdk=${{ steps.bootjdk.outputs.path }}
+        --with-jtreg=${{ steps.jtreg.outputs.path }}
+        --with-gtest=${{ steps.gtest.outputs.path }}
+        --with-zlib=system
+        --with-jmod-compress=zip-1
+        ${{ inputs.extra-conf-options }} ${{ inputs.configure-arguments }} || (
+        echo "Dumping config.log:" &&
+        cat config.log &&
+        exit 1)
       
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
